@@ -1,16 +1,16 @@
 import processing.core.PApplet;
 
-public class Bird {
+class Bird {
     private PApplet pApplet;
-    private float yPosition = 0;
-    private float xPosition = 280;
-    private boolean alive = true;
-    private boolean bestBird = false;
-    private int score = 0;
-    private float q = 12;
-    private float speed = 0;
-    private float speedUp = -3;
-    private float gravity = (float) 0.08;
+    float yPosition = 0;
+    float xPosition = 280;
+    boolean alive = true;
+    boolean bestBird = false;
+    int score = 0;
+    float q = 12;
+    float speed = 0;
+    float speedUp = -3;
+    float gravity = (float) 0.08;
 
     private Bird(PApplet pApplet, float y) {
         this.pApplet = pApplet;
@@ -37,9 +37,10 @@ public class Bird {
     void update() {
         speed += gravity;
         this.yPosition += speed;
-        checkingCollisionWithTopBottom();
+        checkingCollisionWithBorders();
     }
-    private void checkingCollisionWithTopBottom() {
+
+    private void checkingCollisionWithBorders() {
         if (yPosition + q / 2 > Resources.gameHeight)
             kill();
         if (yPosition - q / 2 < 0)
@@ -56,7 +57,7 @@ public class Bird {
         this.alive = false;
     }
 
-    private void isBestBird() {
+    private void bestBird() {
         this.bestBird = true;
     }
 }
