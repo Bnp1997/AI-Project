@@ -14,7 +14,7 @@ public class Main extends PApplet {
         size(1920, 1080);
     }
 
-    public void programSetup() {
+    public void setup() {
         counters = new Counters(this);
         program = new Program(this, counters);
         program.setup();
