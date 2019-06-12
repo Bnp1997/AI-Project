@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-class Bird {
+public class Bird {
     private PApplet pApplet;
     float yPosition = 0;
     float xPosition = 280;

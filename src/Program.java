@@ -1,6 +1,6 @@
 import processing.core.PApplet;
 
-public class Program {
+class Program {
 
     PApplet pApplet;
     Road road;

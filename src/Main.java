@@ -2,9 +2,8 @@ import processing.core.PApplet;
 
 public class Main extends PApplet {
 
-    Program program;
-    Counters counters;
-    int speed = 1;
+    public Program program;
+    public Counters counters;
 
     public static void main(String[] args) {
         PApplet.main("Main");
