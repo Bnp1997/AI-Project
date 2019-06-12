@@ -14,7 +14,7 @@ public class Bird {
 
     private Bird(PApplet pApplet, float y) {
         this.pApplet = pApplet;
-        yPosition = y;
+        this.yPosition = y;
     }
 
     void render() {
@@ -34,7 +34,12 @@ public class Bird {
     }
 
 
-    private void checkingColisionWithTopBottom() {
+    void update() {
+        speed += gravity;
+        this.yPosition += speed;
+        checkingCollisionWithTopBottom();
+    }
+    private void checkingCollisionWithTopBottom() {
         if (yPosition + q / 2 > Resources.gameHeight)
             kill();
         if (yPosition - q / 2 < 0)
@@ -43,15 +48,15 @@ public class Bird {
     }
 
     private void jump() {
-        speed = 0;
-        speed += speedUp;
+        this.speed = 0;
+        this.speed += this.speedUp;
     }
 
     private void kill() {
-        alive = false;
+        this.alive = false;
     }
 
     private void isBestBird() {
-        bestBird = true;
+        this.bestBird = true;
     }
 }
