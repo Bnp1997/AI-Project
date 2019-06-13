@@ -2,22 +2,32 @@ import processing.core.PApplet;
 
 class Program {
 
-    PApplet pApplet;
-    Road road;
-    Counters counters;
+    private PApplet pApplet;
+    private Road road;
+    private Display display;
 
-    public Program(PApplet pApplet, Counters counters) {
+    private BirdPopulation birdPopulation;
+
+    Program(PApplet pApplet, Display display) {
         this.pApplet = pApplet;
-        this.counters = counters;
+        this.display = display;
     }
 
-    public void setup() {
+    void setup() {
         road = new Road(pApplet);
+        birdPopulation = new BirdPopulation(pApplet);
     }
 
-    public void display() {
+    void render() {
         pApplet.background(0);
-        road.display();
-        counters.display();
+        birdPopulation.setPipes(road.getPipeRoad());
+        road.render();
+        birdPopulation.render();
+        if (birdPopulation.populationDead())
+            road.reset();
+        birdPopulation.update();
+        display.render();
+        display.setGeneration(birdPopulation.getGeneration());
+        display.setScore(birdPopulation.getScore());
     }
 }

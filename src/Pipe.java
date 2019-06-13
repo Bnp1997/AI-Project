@@ -1,60 +1,53 @@
 import processing.core.PApplet;
 
-public class Pipe {
-    PApplet p;
-    float height = 800;
+
+class Pipe {
+
+    private PApplet pApplet;
     float width = Resources.PIPE_WIDTH;
     float space = 100;
     float x;
     float y;
-    float top;
-    float bottom;
-    boolean closestPipe = false;
+    float openTop;
+    float openBottom;
+    boolean isClosestPipe = false;
 
-    public Pipe(PApplet parent, float x) {
-        this.p = parent;
+    Pipe(PApplet parent, float x) {
+        this.pApplet = parent;
         this.x = x;
-        top = p.random(space, Resources.gameHeight - space);
-        bottom = top + space;
+        float pivotSpace = 50;
+        openTop = pApplet.random(space, Resources.GAME_SIZE - (pivotSpace + space));
+        openBottom = openTop + space;
     }
 
-    void display() {
-        if(closestPipe) {
-            p.push();
-            p.fill(0,200, 0);
-            p.rect(x, 0, width, top);
-            p.rect(x, bottom, width, Resources.gameHeight - (top+space));
-            p.pop();
-            closestPipe = false;
+    void render() {
+        if (isClosestPipe) {
+            pApplet.push();
+            pApplet.fill(0, 200, 0);
+            pApplet.rect(x, 0, width, openTop);
+            pApplet.rect(x, openBottom, width, Resources.GAME_SIZE - (openTop + space));
+            pApplet.pop();
+            isClosestPipe = false;
         } else {
-            p.rect(x, 0, width, top);
-            p.rect(x, bottom, width, Resources.gameHeight - (top+space));
+            pApplet.rect(x, 0, width, openTop);
+            pApplet.rect(x, openBottom, width, Resources.GAME_SIZE - (openTop + space));
         }
+
+
     }
 
     void update() {
-        x --;
+        x--;
     }
 
-
-    public boolean isOffScreen() {
-        if((x + width) < 0) {
-            return true;
-        } else {
-            return false;
+    boolean birdCollision(Bird bird) {
+        if (bird.xPosition >= this.x && bird.xPosition < this.x + width) {
+            return bird.yPosition - bird.r < openTop || bird.yPosition + bird.r > openBottom;
         }
-    }
-
-    public boolean birdCollision(Bird bird) {
-
-        if(bird.xPosition  >= this.x && bird.xPosition < this.x + width) {
-
-            if(bird.yPosition - bird.q< top|| bird.yPosition + bird.q > bottom) {
-                return true;
-            }
-
-        }
-
         return false;
+    }
+
+    boolean beyondBorders() {
+        return (x + width) < 0;
     }
 }
