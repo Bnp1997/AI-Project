@@ -2,26 +2,25 @@ import processing.core.PApplet;
 
 public class Main extends PApplet {
 
-    public Program program;
-    public Counters counters;
+    private Program program;
 
     public static void main(String[] args) {
         PApplet.main("Main");
     }
 
-    public void settingScreenSize() {
-        size(1920, 1080);
+    public void settings(){
+        size(1200,800);
     }
 
-    public void setup() {
-        counters = new Counters(this);
-        program = new Program(this, counters);
+    public void setup(){
+        Display display = new Display(this);
+        program = new Program(this, display);
         program.setup();
         frameRate(999);
     }
 
-    public void draw() {
+    public void draw(){
         background(0);
-        program.display();
+        program.render();
     }
 }
